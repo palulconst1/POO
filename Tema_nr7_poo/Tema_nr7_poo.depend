@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1585171262 source:d:\poo\tema_nr7_poo\main.cpp
+	<iostream>
+	"stackClass.h"
+
+1585170229 d:\poo\tema_nr7_poo\stackclass.h
+	<stdexcept>
+	<iostream>
+
