@@ -4,6 +4,11 @@
 using namespace std;
 
 int counter=0;
+int setCounter()
+{
+    counter+=1;
+    return counter;
+}
 
 class Biblioteca {
   private:
@@ -25,13 +30,18 @@ class Biblioteca {
     char* getNume() {
       return nume;
     }
-    void afiseaza(){cout<<this->getID()<<' '<<this->getNume()<<endl;}
+    virtual void afiseaza(){cout<<this->getID()<<' '<<this->getNume()<<endl;}
         Biblioteca(const Biblioteca &p) {id= p.id; nume = p.nume;}
         friend ostream & operator << (ostream &out, const Biblioteca &c);
         ~Biblioteca()
 {
     delete nume;
 }
+Biblioteca( Biblioteca &p)
+{
+    nume=p.nume;
+    id=p.id;
+    }
 };
 ostream & operator << (ostream &out, const Biblioteca &c)
 {
@@ -44,9 +54,17 @@ class Complex: public Biblioteca
 private:
     int r, i;
 public:
-    Complex(int r=0, int i=0, char* nume=NULL, int id=0):r(r), i(i){this->setID();
-    this->setNume(nume);};
-    void afiseaza(){cout<<this->getID()<<' '<<this->getNume()<<' '<<r<<"+"<<i<<"i "<<'\n';}
+    Complex(int ra=0, int ia=0, char* nume=NULL, int id=setCounter()):Biblioteca(id, nume)
+    {
+    r=ra;
+    i=ia;
+    //this->setID();
+    //this->setNume(nume);
+    }
+    void afiseaza()
+    {
+        cout<<this->getID()<<' '<<this->getNume()<<' '<<r<<"+"<<i<<"i "<<'\n';
+    }
 
     void setR(int x) {
       r = x;
@@ -76,8 +94,11 @@ class Integer: public Biblioteca
 private:
     int val;
     public:
-        Integer(int val=0, char* nume=NULL, int id=0):val(val){this->setID();
-        this->setNume(nume);};
+        Integer(int vala=0, char* nume=NULL, int id=setCounter()):Biblioteca(id, nume)
+        {val=vala;
+        //this->setID();
+        //this->setNume(nume);
+        }
        void afiseaza(){cout<<this->getID()<<' '<<this->getNume()<<' '<<val<<endl;}
     void setVal(int x) {
         val = x;
@@ -99,8 +120,11 @@ class String: public Biblioteca
 {
     char* sir;
     public:
-        String(char* sir=NULL,char* nume=NULL, int id=0):sir(sir){this->setID();
-        this->setNume(nume);};
+        String(char* sir1=NULL,char* nume=NULL, int id=setCounter()):Biblioteca(id, nume)
+        {sir=sir1;
+       // this->setID();
+        //this->setNume(nume);
+        }
         void afiseaza()
         {
             cout<<this->getID()<<' '<<this->getNume()<<' ';
@@ -111,15 +135,6 @@ class String: public Biblioteca
     char* getSir() {
       return sir;}
       friend ostream & operator << (ostream &out, const String &c);
-      String operator = (String const &obj) {
-         char* res;
-         strcpy(res, obj.sir) ;
-         return res;
-      }
-      ~String()
-{
-    delete sir;
-}
 };
 
 ostream & operator << (ostream &out, const String &c)
@@ -132,8 +147,12 @@ class Adress: public Biblioteca
 {
     char* ad;
     public:
-        Adress(char* ad=NULL,char* nume=NULL, int id=0):ad(ad){this->setID();
-        this->setNume(nume);};
+        Adress(char* ada=NULL,char* nume=NULL, int id=setCounter()):Biblioteca(id, nume)
+        {
+            ad=ada;
+            //this->setID();
+        //this->setNume(nume);
+        }
        void afiseaza()
         {
             cout<<this->getID()<<' '<<this->getNume()<<' ';
@@ -590,7 +609,7 @@ int main()
     verificareInteger(e);
     Integer f(-3, "piu");
     verificareInteger(f);
-    afisare(I);
+   afisare(I);
 
     String g("para", "bam");
     verificareString(g);
@@ -608,14 +627,14 @@ int main()
     verificareAdresa(z);
     afisare(A);
 
-    cout<<a;
-    Biblioteca r(10, "carte");
-    cout<<r;
-    cout<<d;
-    cout<<g;
-    cout<<x;
-    String l=h;
-    cout<<l;
-    Adress o=x;
-    cout<<o;
+    stergeID(3);
+    afisare(C);
+    stergeNume("bam");
+    afisare(S);
+    CautaValSir("copou");
+
+    Biblioteca a1(100, "test");
+    cout<<a1;
+    Biblioteca a2(a1);
+    cout<<a2;
 }
