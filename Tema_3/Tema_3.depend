@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1590010795 source:d:\poo\tema_3\main.cpp
+	<bits/stdc++.h>
+	<typeinfo>
+	"hd.h"
+	<stdarg.h>
+
+1590011230 d:\poo\tema_3\hd.h
+	<bits/stdc++.h>
+	<typeinfo>
+	<stdarg.h>
+
